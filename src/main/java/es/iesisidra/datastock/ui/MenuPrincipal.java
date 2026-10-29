@@ -46,16 +46,32 @@ public class MenuPrincipal {
                 continue;
             }
 
-            switch (opcion) {
-                case 1 -> listarProductos();
-                case 2 -> registrarProducto();
-                case 3 -> inventario.guardarEnXml("datos/salidas/catalogo_salida.xml");
-                case 4 -> inventario.cargarDesdeXml("datos/ejemplos/catalogo_valido.xml");
-                case 5 -> probarXPath();
-                case 6 -> probarRAF();
-                case 0 -> System.out.println("👋 ¡Gracias por utilizar DataStock!");
-                default -> System.out.println("⚠ Opción no válida.");
-            }
+switch (opcion) {
+    case 1:
+        listarProductos();
+        break;
+    case 2:
+        registrarProducto();
+        break;
+    case 3:
+        inventario.guardarEnXml("datos/salidas/catalogo_salida.xml");
+        break;
+    case 4:
+        inventario.cargarDesdeXml("datos/ejemplos/catalogo_valido.xml");
+        break;
+    case 5:
+        probarXPath();
+        break;
+    case 6:
+        probarRAF();
+        break;
+    case 0:
+        System.out.println("👋 ¡Gracias por utilizar DataStock!");
+        break;
+    default:
+        System.out.println("⚠ Opción no válida.");
+        break;
+}
         } while (opcion != 0);
     }
 
