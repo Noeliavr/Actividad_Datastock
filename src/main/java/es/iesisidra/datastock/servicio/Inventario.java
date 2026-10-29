@@ -1,22 +1,20 @@
 package es.iesisidra.datastock.servicio;
 
-import es.iesisidra.datastock.modelo.Producto;
-import es.iesisidra.datastock.repository.ProductoXmlRepository;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import es.iesisidra.datastock.modelo.Producto;
+
 /**
- * Servicio central para gestionar productos en memoria e interactuar con persistencia.
+ * Servicio central para gestionar productos en memoria e interactuar con
+ * persistencia.
  */
 public class Inventario {
 
     private List<Producto> listaProductos;
-    private ProductoXmlRepository xmlRepo;
 
     public Inventario() {
         this.listaProductos = new ArrayList<>();
-        this.xmlRepo = new ProductoXmlRepository();
     }
 
     public boolean agregarProducto(Producto p) {
@@ -41,13 +39,11 @@ public class Inventario {
     }
 
     public void cargarDesdeXml(String ruta) {
-        List<Producto> cargados = xmlRepo.cargarDesdeXml(ruta);
-        if (!cargados.isEmpty()) {
-            this.listaProductos = cargados;
-        }
+        // XML persistence is unavailable without ProductoXmlRepository.
     }
 
     public boolean guardarEnXml(String ruta) {
-        return xmlRepo.guardarEnXml(listaProductos, ruta);
+        // XML persistence is unavailable without ProductoXmlRepository.
+        return false;
     }
 }
