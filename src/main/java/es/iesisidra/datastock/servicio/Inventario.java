@@ -1,22 +1,53 @@
 package es.iesisidra.datastock.servicio;
 
 import es.iesisidra.datastock.modelo.Producto;
+import es.iesisidra.datastock.repository.ProductoXmlRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Estado común del inventario durante la ejecución de UT1.
- * <p>Esta clase solo proporciona la colección compartida. No implementa
- * importación, validación, búsqueda, exportación ni persistencia: esos son
- * ejercicios que deberá desarrollar el alumnado.</p>
+ * Servicio central para gestionar productos en memoria e interactuar con persistencia.
  */
 public class Inventario {
-    private final List<Producto> productos = new ArrayList<>();
 
-    /**
-     * Obtiene la colección que comparten las opciones del menú.
-     * <p>ATENCIÓN: la lista es modificable. El alumnado deberá aplicar las
-     * reglas del enunciado antes de añadir o sustituir elementos.</p>
-     */
-    public List<Producto> getProductos() { return productos; }
+    private List<Producto> listaProductos;
+    private ProductoXmlRepository xmlRepo;
+
+    public Inventario() {
+        this.listaProductos = new ArrayList<>();
+        this.xmlRepo = new ProductoXmlRepository();
+    }
+
+    public boolean agregarProducto(Producto p) {
+        if (buscarPorId(p.getId()) == null) {
+            listaProductos.add(p);
+            return true;
+        }
+        return false;
+    }
+
+    public Producto buscarPorId(String id) {
+        for (Producto p : listaProductos) {
+            if (p.getId().equalsIgnoreCase(id)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public List<Producto> getListaProductos() {
+        return listaProductos;
+    }
+
+    public void cargarDesdeXml(String ruta) {
+        List<Producto> cargados = xmlRepo.cargarDesdeXml(ruta);
+        if (!cargados.isEmpty()) {
+            this.listaProductos = cargados;
+        }
+    }
+
+    public boolean guardarEnXml(String ruta) {
+        return xmlRepo.guardarEnXml(listaProductos, ruta);
+    }
 }
